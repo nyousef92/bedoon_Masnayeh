@@ -1,0 +1,60 @@
+<div class="min-h-screen bg-background flex items-center justify-center p-4">
+    <div class="w-full max-w-2xl bg-white rounded-2xl shadow-sm border border-border p-6 lg:p-10" dir="rtl">
+
+        <!-- Back button -->
+        <button (click)="goBack()"
+            class="flex items-center gap-2 text-text-muted hover:text-primary transition-colors mb-6 text-sm">
+            <span class="material-icons text-[20px]">arrow_forward</span>
+            رجوع
+        </button>
+
+        <!-- Title -->
+        <h2 class="text-xl font-bold text-text mb-1">اتفاقية رسوم الخدمة</h2>
+        <hr class="border-border mb-5">
+
+        <!-- Quranic verse -->
+        <div class="bg-background rounded-xl p-4 mb-5 text-center space-y-1">
+            <p class="text-text-muted text-sm">بسم الله الرحمن الرحيم</p>
+            <p class="text-text-secondary text-sm">قال الله تعالى:</p>
+            <p class="text-text font-semibold text-base leading-relaxed px-2">
+                "
+                ﴿وَمَنْ أَوْفَى بِمَا عَاهَدَ عَلَيْهِ اللَّهَ فَسَيُؤْتِيهِ أَجْرًا عَظِيمًا﴾
+                "
+            </p>
+            <p class="text-text-muted text-sm">صدق الله العظيم</p>
+        </div>
+
+        <hr class="border-border mb-5">
+
+        <!-- Agreement terms -->
+        <ul class="space-y-3 mb-6 text-text-secondary text-sm leading-relaxed">
+            <li class="flex gap-2">
+                <span class="text-primary font-bold mt-0.5">•</span>
+                <span>
+                    أتعهد وأُقسم بالله أنا المُعلِن أن أدفع رسوم الموقع وهي
+                    <strong class="text-text">
+                        {{ 0.25 | currency:'JOD':'symbol':'1.2-2' }}
+                    </strong>
+                    من قيمة على كل غرام يتم بيعه، سواءً تمّ البيع عن طريق الموقع.
+                </span>
+            </li>
+
+        </ul>
+
+        <!-- Checkbox -->
+        <label class="flex items-start gap-3 cursor-pointer mb-6 group">
+            <input type="checkbox" [(ngModel)]="agreed"
+                class="mt-0.5 h-5 w-5 rounded border-border accent-primary focus:ring-primary focus:ring-offset-0 cursor-pointer shrink-0" />
+                <span class="text-sm text-text-secondary group-hover:text-text transition-colors">
+                أقر بأنني قرأت الاتفاقية كاملةً وأوافق على جميع بنودها، وأتعهد بالالتزام بها.
+            </span>
+        </label>
+
+        <!-- Continue button -->
+        <button type="button" (click)="proceed()" [disabled]="!agreed"
+            class="w-full py-2.5 px-4 bg-primary text-white text-sm font-medium rounded-lg hover:bg-primary-dark transition-colors disabled:opacity-40 disabled:cursor-not-allowed">
+            استمرار
+        </button>
+
+    </div>
+</div>

@@ -1,0 +1,51 @@
+<div class="p-3 border-t border-border flex items-center justify-between">
+
+  <p class="text-xs text-text-secondary">
+    Showing {{ startingIndex }}–{{ endingIndex }} of {{ totalItems }} {{ listName }}
+  </p>
+
+  <div class="flex items-center gap-1">
+
+    <!-- Previous -->
+    <button
+      (click)="goTo(currentPage - 1)"
+      [disabled]="currentPage === 1"
+      class="px-2.5 py-1 text-sm rounded transition-colors"
+      [class.text-text-secondary]="currentPage !== 1"
+      [class.hover:bg-background]="currentPage !== 1"
+      [class.text-text-muted]="currentPage === 1"
+      [class.cursor-not-allowed]="currentPage === 1">
+      ‹
+    </button>
+
+    <!-- Pages -->
+    @for (page of pages; track $index) {
+      @if (page === null) {
+        <span class="px-2 py-1 text-sm text-text-muted select-none">…</span>
+      } @else {
+        <button
+          (click)="goTo(page)"
+          class="px-2.5 py-1 text-sm rounded transition-colors"
+          [class.bg-primary]="page === currentPage"
+          [class.text-white]="page === currentPage"
+          [class.text-text-secondary]="page !== currentPage"
+          [class.hover:bg-background]="page !== currentPage">
+          {{ page }}
+        </button>
+      }
+    }
+
+    <!-- Next -->
+    <button
+      (click)="goTo(currentPage + 1)"
+      [disabled]="currentPage === totalPages"
+      class="px-2.5 py-1 text-sm rounded transition-colors"
+      [class.text-text-secondary]="currentPage !== totalPages"
+      [class.hover:bg-background]="currentPage !== totalPages"
+      [class.text-text-muted]="currentPage === totalPages"
+      [class.cursor-not-allowed]="currentPage === totalPages">
+      ›
+    </button>
+
+  </div>
+</div>

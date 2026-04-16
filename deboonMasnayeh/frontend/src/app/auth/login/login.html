@@ -1,0 +1,41 @@
+<div class="min-h-screen flex items-center justify-center relative">
+    <div class="absolute inset-0 bg-cover bg-center"
+        >
+    </div>
+    <div class="relative z-10 w-full max-w-sm mx-4">
+        <div class="bg-surface/85 backdrop-blur-xl rounded-xl shadow-2xl p-4">
+            <div class="flex items-start gap-6">
+                <div class=" flex items-center justify-center">
+                    <div class="relative">
+                        <span class="relative inline-flex">
+                            <span class="material-icons text-primary text-[38px]">diamond</span>
+                            <span class="material-icons text-primary-dark absolute text-[16px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">auto_awesome</span>
+                        </span>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <h1 class="text-slate-800 mb-0 text-2xl leading-none font-bold">
+                        Beboon Masnayeh
+                    </h1>
+                    <p class="text-slate-500 text-xs mt-0">Jewely and more </p>
+                </div>
+            </div>
+            <form class="space-y-2" [formGroup]="loginForm">
+                <app-input-field [errorMessage]="getErrorMessage('emailOrPhone', 'Email or Phone')" placeholder="email or phone"
+                    label="email or phone" formControlName="emailOrPhone">
+                </app-input-field>
+                <app-input-field [errorMessage]="getErrorMessage('password', 'password')" placeholder="password"
+                    label="password" [type]="'password'" formControlName="password">
+                </app-input-field>
+                <button type="submit" (click)="loginClick.next()"
+                    class="w-full py-2 px-4 bg-primary text-white text-sm font-medium rounded-lg hover:bg-primary-dark transition-colors capitalize ">
+                    Login or Register
+                </button>
+                <button type="button"
+                    class="w-full py-2 px-4  text-primary text-sm font-medium border-none hover:cursor-pointer transition-colors capitalize">
+                    forgot password?
+                </button>
+            </form>
+        </div>
+    </div>
+</div>

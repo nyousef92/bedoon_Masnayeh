@@ -1,0 +1,72 @@
+<app-modal />
+<div class="bg-white rounded-xl shadow-sm border border-border flex flex-col overflow-hidden">
+    <div class="relative">
+        <!-- Image -->
+        @if (offer.images && offer.images.length > 0) {
+        <img [src]="offer.images[offer.imageActiveIndex ?? 0]" [alt]="offer.title" loading="lazy"
+            class="w-full h-48 object-cover" />
+        } @else {
+        <div class="w-full h-48 bg-background flex items-center justify-center text-text-muted text-sm">
+            No image
+        </div>
+        }
+
+
+        @if (offer.images && offer.images.length > 1) {
+        <button (click)="prevImage()"
+            class="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 text-white p-1 rounded-full hover:bg-black/70">
+            <span class="material-icons">chevron_left</span>
+        </button>
+
+        <!-- Right Arrow -->
+        <button (click)="nextImage()"
+            class="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 text-white p-1 rounded-full hover:bg-black/70">
+            <span class="material-icons">chevron_right</span>
+        </button>
+        }
+
+    </div>
+    <!-- Body -->
+    <div class="p-4 flex flex-col gap-2 flex-1">
+        <h3 class="font-semibold text-text-primary text-sm leading-snug">{{ offer.title }}</h3>
+
+        @if (offer.description) {
+        <p class="text-text-secondary text-xs line-clamp-2"> {{ offer.description }}</p>
+        }
+
+        <div class="flex items-center gap-2 flex-wrap mt-auto pt-2">
+            <span class="text-xs bg-background text-text-secondary px-2 py-0.5 rounded-full">
+                {{ offer.karat }}K
+            </span>
+            <span class="text-xs bg-background text-text-secondary px-2 py-0.5 rounded-full">
+                {{ offer.weight }}g
+            </span>
+            <span class="text-xs bg-background text-text-secondary px-2 py-0.5 rounded-full capitalize">
+                {{ offer.condition }}
+            </span>
+            @if (offer.cityId) {
+            <span class="text-xs bg-background text-text-secondary px-2 py-0.5 rounded-full">
+                {{ getCityLabel(offer.cityId) }}
+            </span>
+            }
+        </div>
+
+        <p class="text-primary font-bold text-base">
+            {{ offer.calculatedPrice | currency:'JOD':'symbol':'1.2-2' }}
+        </p>
+        @if(editMode){
+
+        <button (click)="editOffer(offer.id)"
+            class="mt-2 w-full py-1.5 text-sm font-medium text-primary border border-primary rounded-lg hover:bg-primary hover:text-white transition-colors">
+            Edit
+        </button>
+        }@else{
+
+        <button type="button" (click)="showContactInfoModal(offer.id)"
+            class="w-full py-2 px-4 bg-primary text-white text-sm font-medium rounded-lg hover:bg-primary-dark transition-colors capitalize ">
+            Contact Seller
+        </button>
+        }
+    </div>
+
+</div>

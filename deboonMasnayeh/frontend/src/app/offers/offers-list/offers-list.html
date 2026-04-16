@@ -1,0 +1,37 @@
+
+<div class="p-6">
+
+  <!-- Header -->
+  <div class="flex items-center justify-between mb-6">
+    <h2 class="text-xl font-semibold text-text-primary">Offers</h2>
+    <button (click)="navigateToAddOffer()"
+      class="px-4 py-2 bg-primary text-white text-sm font-medium rounded-lg hover:bg-primary-dark transition-colors">
+      Add Offer
+    </button>
+  </div>
+
+  <!-- Grid -->
+  @if (isLoading()) {
+  <div class="text-center py-16 text-text-muted text-sm w-full">Loading...</div>
+  } @else {
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-6">
+    @if(offersList()&&offersList().length > 0) {
+    @for (offer of offersList(); track offer.id) {
+    <app-offer-item [offer]="offer"></app-offer-item>
+
+    }
+    }
+    @else {
+    <div class="col-span-full text-center py-16 text-text-muted text-sm">
+      No offers available.
+    </div>
+    }
+  </div>
+  }
+  <!-- Paginator -->
+  <app-paginator listName="offers" [currentPage]="pageNumber" [totalItems]="totalItems" [pageSize]="pageSize"
+    (pageChange)="onPageChange($event)">
+  </app-paginator>
+
+</div>

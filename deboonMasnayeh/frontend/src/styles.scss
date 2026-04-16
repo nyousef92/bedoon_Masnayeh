@@ -1,0 +1,168 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Primary — Gold */
+    --color-primary: 201 168 76;       /* #C9A84C */
+    --color-primary-light: 226 201 126; /* #E2C97E */
+    --color-primary-dark: 158 123 47;  /* #9E7B2F */
+
+    /* Secondary — Jet Black */
+    --color-secondary: 17 17 17;       /* #111111 */
+    --color-secondary-light: 42 42 42; /* #2A2A2A */
+    --color-secondary-dark: 0 0 0;     /* #000000 */
+
+    /* Accent — Rose Gold */
+    --color-accent: 211 155 121;       /* #D39B79 */
+    --color-accent-light: 232 194 172; /* #E8C2AC */
+    --color-accent-dark: 180 112 74;   /* #B4704A */
+
+    /* Success */
+    --color-success: 34 197 94;
+    --color-success-light: 74 222 128;
+    --color-success-dark: 22 163 74;
+
+    /* Warning */
+    --color-warning: 234 179 8;
+    --color-warning-light: 250 204 21;
+    --color-warning-dark: 202 138 4;
+
+    /* Danger */
+    --color-danger: 220 53 53;
+    --color-danger-light: 248 113 113;
+    --color-danger-dark: 185 28 28;
+
+    /* Info */
+    --color-info: 6 182 212;
+    --color-info-light: 34 211 238;
+    --color-info-dark: 8 145 178;
+
+    /* Surfaces & backgrounds — warm cream */
+    --color-surface: 255 253 247;      /* #FFFDF7 */
+    --color-background: 245 240 228;   /* #F5F0E4 */
+
+    /* Text */
+    --color-text: 17 17 17;            /* #111111 */
+    --color-text-secondary: 92 79 57;  /* #5C4F39 */
+    --color-text-muted: 166 153 130;   /* #A69982 */
+
+    /* Border — warm gold tint */
+    --color-border: 224 210 180;       /* #E0D2B4 */
+
+    /* Sidebar — deep black with gold active */
+    --color-sidebar: 12 12 12;         /* #0C0C0C */
+    --color-sidebar-hover: 42 42 42;   /* #2A2A2A */
+    --color-sidebar-active: 201 168 76; /* #C9A84C */
+  }
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: 'Inter', Roboto, "Helvetica Neue", sans-serif; }
+
+// ─── ng-select theme ──────────────────────────────────────────────────────────
+.ng-select {
+  .ng-select-container {
+    background-color: rgb(var(--color-surface));
+    border: 1px solid rgb(var(--color-border));
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    color: rgb(var(--color-text));
+    min-height: 38px;
+    transition: border-color 0.15s, box-shadow 0.15s;
+    box-shadow: none !important;
+
+    .ng-value-container {
+      padding: 0.25rem 0.75rem;
+
+      .ng-placeholder {
+        color: rgb(var(--color-text-muted));
+      }
+
+      .ng-value {
+        color: rgb(var(--color-text));
+      }
+
+      input {
+        color: rgb(var(--color-text));
+      }
+    }
+
+    .ng-arrow-wrapper {
+      padding-right: 0.75rem;
+
+      .ng-arrow {
+        border-color: rgb(var(--color-text-muted)) transparent transparent;
+      }
+    }
+
+    .ng-clear-wrapper {
+      color: rgb(var(--color-text-muted));
+
+      &:hover { color: rgb(var(--color-danger)); }
+    }
+  }
+
+  &.ng-select-focused:not(.ng-select-opened) > .ng-select-container {
+    border-color: rgb(var(--color-primary));
+    box-shadow: 0 0 0 1px rgb(var(--color-primary)) !important;
+  }
+
+  &.ng-select-opened > .ng-select-container {
+    border-color: rgb(var(--color-primary));
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  &.ng-select-disabled > .ng-select-container {
+    background-color: rgb(var(--color-background));
+    color: rgb(var(--color-text-muted));
+    cursor: not-allowed;
+  }
+
+  .ng-dropdown-panel {
+    border: 1px solid rgb(var(--color-primary));
+    border-top: none;
+    background-color: rgb(var(--color-surface));
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border-bottom-left-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+
+    .ng-dropdown-panel-items {
+      max-height: 220px;
+
+      .ng-option {
+        font-size: 0.875rem;
+        color: rgb(var(--color-text));
+        padding: 0.5rem 0.75rem;
+        background-color: rgb(var(--color-surface));
+
+        &.ng-option-marked {
+          background-color: rgb(var(--color-background));
+          color: rgb(var(--color-text));
+        }
+
+        &.ng-option-selected {
+          background-color: rgba(var(--color-primary), 0.08);
+          color: rgb(var(--color-primary));
+          font-weight: 500;
+        }
+
+        &.ng-option-selected.ng-option-marked {
+          background-color: rgba(var(--color-primary), 0.14);
+        }
+
+        &.ng-option-disabled {
+          color: rgb(var(--color-text-muted));
+        }
+      }
+    }
+  }
+}
+
+// Error state — applied via wrapper div [class.ng-select-error]
+.ng-select-error .ng-select > .ng-select-container {
+  border-color: rgb(var(--color-danger)) !important;
+}
+// ─────────────────────────────────────────────────────────────────────────────

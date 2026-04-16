@@ -1,0 +1,42 @@
+<!-- <div [class.hidden]="!isOpen" class="fixed inset-0 z-50 flex items-center justify-center">
+
+    <div class="absolute inset-0 bg-black/50" (click)="disableBackdropClose ? null : close()"></div>
+
+    <div class="relative z-10 bg-surface rounded-xl shadow-xl max-h-[90vh] overflow-y-auto mx-4" [ngClass]="panelClass">
+
+        <button (click)="close()" class="absolute top-3 right-3 p-1 hover:bg-background rounded-full transition-colors">
+            <span class="material-icons text-[20px] text-text-muted">close</span>
+        </button>
+        <ng-container #dynamicContainer></ng-container>
+
+    </div>
+</div>
+ -->
+
+
+
+<div [class.hidden]="!isOpen" class="fixed inset-0 z-50 flex items-center justify-center">
+
+  <!-- Backdrop -->
+  <div 
+    class="absolute inset-0 bg-black/50" 
+    (click)="disableBackdropClose ? null : close()">
+  </div>
+
+  <!-- Panel -->
+  <div 
+    class="relative z-10 bg-surface rounded-xl shadow-xl max-h-[90vh] overflow-y-auto mx-4"
+    [ngClass]="panelClass">
+
+    <!-- Close button -->
+    <button 
+      (click)="close()" 
+      class="absolute top-3 right-3 z-20 bg-white p-2 transition-colors">
+          <span class="material-icons text-[20px] text-text-muted">close</span>
+    </button>
+
+    <!-- Dynamic component -->
+    <ng-container #dynamicContainer></ng-container>
+
+  </div>
+</div>

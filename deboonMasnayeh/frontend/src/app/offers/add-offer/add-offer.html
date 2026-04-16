@@ -1,0 +1,163 @@
+<div class="max-w-xl mx-auto p-6">
+  <h2 class="text-xl font-semibold text-text-primary mb-6">{{ editMode ? 'Edit Offer' : 'Add New Offer' }}</h2>
+
+  <form [formGroup]="form" class="space-y-4">
+
+    <!-- Title -->
+    <app-input-field
+      label="Title"
+      placeholder="e.g. Gold Ring 21K"
+      formControlName="title"
+      [errorMessage]="err('title', 'Title')">
+    </app-input-field>
+
+    <!-- Description -->
+    <app-input-field
+      label="Description"
+      placeholder="Optional description"
+      formControlName="description"
+      [errorMessage]="err('description', 'Description')">
+    </app-input-field>
+
+    <!-- Offer Type -->
+    <app-select-dropdown
+      label="Offer Type"
+      placeholder="Select offer type"
+      formControlName="offerTypeId"
+      [options]="offerTypeOptions"
+      [errorMessage]="err('offerTypeId', 'Offer type')">
+    </app-select-dropdown>
+
+    <div class="grid grid-cols-2 gap-4">
+
+      <!-- Karat -->
+      <app-select-dropdown
+        label="Karat"
+        placeholder="Select karat"
+        formControlName="karat"
+        [options]="karatOptions"
+        [errorMessage]="err('karat', 'Karat')">
+      </app-select-dropdown>
+
+      <!-- Condition -->
+      <app-select-dropdown
+        label="Condition"
+        formControlName="condition"
+        [options]="conditionOptions"
+        [errorMessage]="err('condition', 'Condition')">
+      </app-select-dropdown>
+
+    </div>
+
+    <div class="grid grid-cols-2 gap-4">
+
+      <!-- City -->
+      <app-select-dropdown
+        label="City"
+        placeholder="Select city"
+        formControlName="cityId"
+        [options]="cityOptions"
+        [required]="true"
+        [errorMessage]="err('cityId', 'City')">
+      </app-select-dropdown>
+
+      <!-- Phone -->
+      <div>
+        <app-input-field
+          label="Phone Number"
+          placeholder="+9627XXXXXXXX"
+          formControlName="phone"
+          [required]="true"
+          [errorMessage]="err('phone', 'Phone Number')"
+          [touched]="form.get('phone')?.touched">
+        </app-input-field>
+        <p class="mt-1 text-xs text-text-muted">Format: +9627XXXXXXXX</p>
+      </div>
+
+    </div>
+
+    <div class="grid grid-cols-2 gap-4">
+
+      <!-- Weight -->
+      <app-input-field
+        label="Weight (g)"
+        placeholder="e.g. 5.5"
+        type="number"
+        formControlName="weight"
+        [errorMessage]="err('weight', 'Weight')">
+      </app-input-field>
+
+      <!-- Manufacturing Wage -->
+      <app-input-field
+        label="Manufacturing Wage / g"
+        placeholder="e.g. 10"
+        type="number"
+        formControlName="manufacturingWagePerGram"
+        [errorMessage]="err('manufacturingWagePerGram', 'Manufacturing wage')">
+      </app-input-field>
+
+    </div>
+
+    <!-- Images -->
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium text-text-primary">Photos</label>
+
+      <label class="flex items-center justify-center gap-2 w-full h-24 border-2 border-dashed border-border rounded-lg cursor-pointer hover:border-primary transition-colors text-text-muted text-sm">
+        <input type="file" accept="image/jpeg,image/png,image/webp" multiple class="hidden" (change)="onFilesSelected($event)" />
+        <span class="material-icons text-[20px]">add_photo_alternate</span>
+        Click to add photos (JPEG, PNG, WebP · max 5 MB each)
+      </label>
+
+      @if (images.length > 0 || uploadingItems.length > 0) {
+        <div class="flex flex-wrap gap-2 mt-1">
+          @for (item of uploadingItems; track $index) {
+            <div class="relative w-20 h-20 rounded-lg overflow-hidden border border-border shrink-0">
+              <img [src]="item.preview" class="w-full h-full object-cover" />
+              @if (!item.error) {
+                <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
+                  <span class="material-icons text-white animate-spin text-[18px]">refresh</span>
+                </div>
+              }
+              @if (item.error) {
+                <div class="absolute inset-0 bg-red-500/60 flex items-center justify-center">
+                  <span class="material-icons text-white text-[18px]">error</span>
+                </div>
+              }
+            </div>
+          }
+          @for (url of images; track url) {
+            <div class="relative w-20 h-20 rounded-lg overflow-hidden border border-border shrink-0">
+              <img [src]="url" class="w-full h-full object-cover" />
+              <button type="button" (click)="removeImage(url)"
+                class="absolute top-0.5 right-0.5 bg-black/50 rounded-full p-0.5 hover:bg-black/70 transition-colors">
+                <span class="material-icons text-white text-[14px]">close</span>
+              </button>
+            </div>
+          }
+        </div>
+      }
+
+      @if (uploadingCount > 0) {
+        <p class="text-xs text-text-muted">Uploading {{ uploadingCount }} photo(s)...</p>
+      }
+    </div>
+
+    <button
+      type="button"
+      (click)="submitClick.next()"
+      [disabled]="isLoading || uploadingCount > 0"
+      class="w-full py-2 px-4 bg-primary text-white text-sm font-medium rounded-lg hover:bg-primary-dark transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+      {{ isLoading ? 'Saving...' : uploadingCount > 0 ? 'Waiting for uploads...' : editMode ? 'Save Changes' : 'Add Offer' }}
+    </button>
+    @if(this.editOfferId){
+    <button
+      type="button"
+      (click)="deleteClick.next()"
+      [disabled]="isLoading || uploadingCount > 0"
+      class="w-full py-2 px-4 bg-danger text-white text-sm font-medium rounded-lg hover:bg-danger transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+      Delete Offer
+    </button>}
+
+
+  </form>
+</div>

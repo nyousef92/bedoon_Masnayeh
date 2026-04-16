@@ -1,0 +1,32 @@
+<div class="p-6">
+
+  <div class="flex items-center justify-between mb-6">
+    <h2 class="text-xl font-semibold text-text-primary">My Offers</h2>
+    <a routerLink="/agreement"
+      class="px-4 py-2 bg-primary text-white text-sm font-medium rounded-lg hover:bg-primary-dark transition-colors">
+      Add Offer
+    </a>
+  </div>
+
+  @if (isLoading()) {
+  <div class="text-center py-16 text-text-muted text-sm">Loading...</div>
+  } @else {
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-6">
+    @if (offers().length > 0) {
+    @for (offer of offers(); track offer.id) {
+    <app-offer-item [offer]="offer" [editMode]="true"></app-offer-item>
+    }
+    } @else {
+    <div class="col-span-full text-center py-16 text-text-muted text-sm">
+      You haven't added any offers yet.
+    </div>
+    }
+  </div>
+
+  <app-paginator listName="my offers" [currentPage]="pageNumber" [totalItems]="totalItems" [pageSize]="pageSize"
+    (pageChange)="onPageChange($event)">
+  </app-paginator>
+  }
+
+</div>

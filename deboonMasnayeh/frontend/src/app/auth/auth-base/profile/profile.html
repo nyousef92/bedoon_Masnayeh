@@ -1,0 +1,33 @@
+<div class="max-w-xl mx-auto p-6">
+  <h2 class="text-xl font-semibold text-text-primary mb-6">Profile</h2>
+
+  <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="space-y-4">
+
+    <app-input-field label="Full Name" placeholder="Enter your full name" formControlName="fullName" [required]="true"
+      [errorMessage]="getError('fullName', 'Full Name')" [touched]="profileForm.get('fullName')?.touched" />
+
+    <app-input-field label="Email" type="email" placeholder="Enter your email" formControlName="email" [required]="true"
+      [errorMessage]="getError('email', 'Email')" [touched]="profileForm.get('email')?.touched" />
+
+    <div>
+      <app-input-field label="Phone Number" placeholder="+9627XXXXXXXX" formControlName="phone" [required]="true"
+        [errorMessage]="getError('phone', 'Phone Number')" [touched]="profileForm.get('phone')?.touched" />
+      <p class="mt-1 text-xs text-text-muted">Jordanian mobile format: +9627XXXXXXXX (12 digits total)</p>
+    </div>
+
+    <app-select-dropdown label="City" formControlName="cityId" [options]="cities" [required]="true"
+      [errorMessage]="getError('cityId', 'City')" [touched]="profileForm.get('cityId')?.touched" />
+
+    <div class="flex items-center gap-3 pt-1">
+      <button type="submit"
+        class="px-5 py-2 bg-primary text-white text-sm font-medium rounded-lg hover:bg-primary-dark transition-colors">
+        Save Changes
+      </button>
+
+      @if (saved) {
+      <span class="text-sm text-green-600 font-medium">Saved successfully</span>
+      }
+    </div>
+
+  </form>
+</div>

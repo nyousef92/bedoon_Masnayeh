@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Top facets -->
+  <polygon points="16,24 32,8 48,24" fill="#f59e0b"/>
+  <!-- Upper-left facet -->
+  <polygon points="8,32 16,24 32,24 24,36" fill="#fbbf24"/>
+  <!-- Upper-right facet -->
+  <polygon points="56,32 48,24 32,24 40,36" fill="#d97706"/>
+  <!-- Center top facet -->
+  <polygon points="16,24 32,24 48,24 40,36 32,30 24,36" fill="#fcd34d"/>
+  <!-- Lower-left facet -->
+  <polygon points="8,32 24,36 32,56" fill="#f59e0b"/>
+  <!-- Lower-right facet -->
+  <polygon points="56,32 40,36 32,56" fill="#b45309"/>
+  <!-- Bottom-center facet -->
+  <polygon points="24,36 32,30 40,36 32,56" fill="#fbbf24"/>
+</svg>

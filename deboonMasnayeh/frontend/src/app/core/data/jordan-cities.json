@@ -1,0 +1,14 @@
+[
+  { "id": 1, "label": "Amman" },
+  { "id": 2, "label": "Zarqa" },
+  { "id": 3, "label": "Irbid" },
+  { "id": 4, "label": "Aqaba" },
+  { "id": 5, "label": "Mafraq" },
+  { "id": 6, "label": "Jerash" },
+  { "id": 7, "label": "Ajloun" },
+  { "id": 8, "label": "Madaba" },
+  { "id": 9, "label": "Karak" },
+  { "id": 10, "label": "Tafilah" },
+  { "id": 11, "label": "Ma'an" },
+  { "id": 12, "label": "Balqa" }
+]

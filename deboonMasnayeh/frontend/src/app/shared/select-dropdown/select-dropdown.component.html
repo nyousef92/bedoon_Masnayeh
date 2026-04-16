@@ -1,0 +1,104 @@
+<div class="w-full">
+
+    @if (label) {
+    <label [for]="label" class="block text-xs text-text-secondary mb-1.5 capitalize">
+        {{ label }}
+        @if(required){ <span class="text-danger">*</span> }
+    </label>
+    }
+
+    @if (!multiple) {
+    <!-- Single select -->
+    <select [id]="label" [formControl]="formControl" [attr.required]="required" (change)="onSelectionChange($event)"
+        (blur)="onBlur()" (focus)="onFocus()"
+        class="w-full px-3 py-2 text-sm text-text bg-surface border border-border rounded-lg outline-none transition-colors focus:border-primary focus:ring-1 focus:ring-primary disabled:bg-background disabled:text-text-muted disabled:cursor-not-allowed"
+        [class.!border-danger]="showError()"
+        [disabled]="disabled"
+        >
+        <option value="">{{effectivePlaceholder}}</option>
+        @for(option of options; track option.id || option.value){
+        <option [value]="option.value">{{ option.label }}</option>
+        }
+    </select>
+
+    } @else {
+    <!-- Multi select -->
+    <div class="relative">
+
+        <!-- Trigger button -->
+        <button type="button" (click)="toggleDropdown($event)"
+            class="w-full px-3 py-2 text-sm bg-surface border border-border rounded-lg outline-none transition-colors text-left flex items-center justify-between gap-2 disabled:bg-background disabled:cursor-not-allowed"
+            [class.!border-danger]="showError()" [class.border-primary]="isOpen"
+            [class.ring-1]="isOpen" [class.ring-primary]="isOpen" [disabled]="disabled">
+            <span class="flex-1 truncate"
+                [class.text-text-muted]="selectedValues.length === 0"
+                [class.text-text]="selectedValues.length > 0">
+                @if (selectedValues.length === 0) {
+                {{ effectivePlaceholder }}
+                } @else {
+                {{ getTriggerLabel() }}
+                }
+            </span>
+            <span class="material-icons text-[18px] text-text-muted shrink-0 transition-transform duration-200"
+                [class.rotate-180]="isOpen">expand_more</span>
+        </button>
+
+        <!-- Selected tags -->
+        @if (selectedValues.length > 0) {
+        <div class="flex flex-wrap gap-1 mt-1.5">
+            @for (val of selectedValues; track val) {
+            <span
+                class="inline-flex items-center gap-1 px-2 py-0.5 bg-primary/10 text-primary rounded-full text-xs font-medium">
+                {{ getLabelForValue(val) }}
+                <button type="button" (click)="removeOption($event, val)"
+                    class="hover:text-primary-dark leading-none">
+                    <span class="material-icons text-[12px]">close</span>
+                </button>
+            </span>
+            }
+        </div>
+        }
+
+        <!-- Dropdown panel -->
+        @if (isOpen) {
+        <div class="absolute z-50 w-full mt-1 bg-surface border border-border rounded-lg shadow-lg overflow-hidden">
+            <div class="max-h-52 overflow-y-auto py-1">
+                @for (option of options; track option.id || option.value) {
+                <div (click)="toggleOption($event, option.value!.toString())"
+                    class="flex items-center gap-3 px-3 py-2 cursor-pointer hover:bg-background transition-colors select-none"
+                    [class.bg-primary/5]="isSelected(option.value!.toString())">
+
+                    <!-- Checkbox -->
+                    <span
+                        class="w-4 h-4 rounded border-2 flex items-center justify-center shrink-0 transition-colors"
+                        [class.bg-primary]="isSelected(option.value!.toString())"
+                        [class.border-primary]="isSelected(option.value!.toString())"
+                        [class.border-border]="!isSelected(option.value!.toString())">
+                        @if (isSelected(option.value!.toString())) {
+                        <span class="material-icons text-white" style="font-size: 11px;">check</span>
+                        }
+                    </span>
+
+                    <span class="text-sm flex-1"
+                        [class.text-text]="isSelected(option.value!.toString())"
+                        [class.font-medium]="isSelected(option.value!.toString())"
+                        [class.text-text-secondary]="!isSelected(option.value!.toString())">
+                        {{ option.label }}
+                    </span>
+
+                </div>
+                }
+            </div>
+        </div>
+        }
+
+    </div>
+    }
+
+    @if(showError()){
+    <div class="mt-1 text-xs text-danger">
+        {{ errorMessage }}
+    </div>
+    }
+
+</div>
